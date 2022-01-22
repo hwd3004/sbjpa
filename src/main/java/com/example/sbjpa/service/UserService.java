@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.sbjpa.repository.UserRepository;
 
+// 서비스 어노테이션이 선언된 클래스에는 비지니스 로직을 작성하는 곳이며,
+// 스프링 측에서 익셉션 핸들링을 해주려고 개선 작업 중이다
 @Service
 public class UserService {
 

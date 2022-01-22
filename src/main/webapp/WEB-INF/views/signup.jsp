@@ -3,6 +3,7 @@
 <%@ include file="./layout/header.jsp"%>
 
     <title>sign up</title>
+    <script src="/js/signup.js"></script>
 
 <%@ include file="./layout/nav.jsp"%>
 
