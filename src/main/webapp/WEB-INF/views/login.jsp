@@ -7,7 +7,7 @@
 <%@ include file="./layout/nav.jsp"%>
 
 <div>
-    
+    <h1>log in</h1>
 </div>
 
 <%@ include file="./layout/footer.jsp"%>
