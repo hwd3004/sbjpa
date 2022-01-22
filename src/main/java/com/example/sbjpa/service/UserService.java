@@ -4,6 +4,8 @@ import com.example.sbjpa.model.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.example.sbjpa.repository.UserRepository;
 
 // 서비스 어노테이션이 선언된 클래스에는 비지니스 로직을 작성하는 곳이며,
@@ -11,10 +13,16 @@ import com.example.sbjpa.repository.UserRepository;
 @Service
 public class UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+	@Autowired
+	private UserRepository userRepository;
 
-    public User login(User user) {
-        return userRepository.login(user.getUserId(), user.getPassword());
-    }
+	@Transactional(readOnly = true)
+	public User login(User user) {
+		return userRepository.login(user.getUserId(), user.getPassword());
+	}
+
+	@Transactional
+	public User signup(User user) {
+		return userRepository.save(user);
+	}
 }

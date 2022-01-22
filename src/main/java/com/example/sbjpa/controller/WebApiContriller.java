@@ -10,22 +10,35 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class WebApiContriller {
 
-    @Autowired
-    private UserService userService;
+	@Autowired
+	private UserService userService;
 
-    @PostMapping("/api/login")
-    public ResponseDto<Integer> login(@RequestBody User user, HttpSession session) {
-        User principal = userService.login(user);
+	@PostMapping("/api/signup")
+	public ResponseDto<Integer> signup(@RequestBody User user) {
 
-        if (principal != null) {
-            session.setAttribute("principal", principal);
-        }
+		User signupUser = userService.signup(user);
 
-        return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
-    }
+		System.out.println(signupUser);
+
+		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
+	}
+
+	@PostMapping("/api/login")
+	public ResponseDto<Integer> login(@RequestBody User user, HttpSession session) {
+		User principal = userService.login(user);
+
+		System.out.println(principal);
+
+		if (principal != null) {
+			session.setAttribute("principal", principal);
+		}
+
+		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
+	}
 }

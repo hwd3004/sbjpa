@@ -2,10 +2,9 @@
 
 <%@ include file="./layout/header.jsp"%>
 
-    <title>index</title>
-
-<%@ include file="./layout/nav.jsp"%>
-
+<div>
+  <h1>index</h1>
+</div>
 
 <%@ include file="./layout/footer.jsp"%>
 

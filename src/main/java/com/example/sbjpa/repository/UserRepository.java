@@ -13,6 +13,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     // 대소문자 잘지켜야함
     // User findByUseridAndPassword(String userId, String password);
 
-    @Query(value = "select * from where userId = ?1 and where password = ?2", nativeQuery = true)
+    @Query(value = "select * from user where userId = ?1 and password = ?2", nativeQuery = true)
     User login(String userId, String password);
 }
