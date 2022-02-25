@@ -23,6 +23,11 @@ public class WebController {
 		return "signup";
 	}
 
+	@GetMapping("/post/create")
+	public String post_create() {
+		return "/post_create";
+	}
+
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		session.removeAttribute("principal");

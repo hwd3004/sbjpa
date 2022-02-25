@@ -10,8 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 public class WebApiContriller {
@@ -40,5 +41,20 @@ public class WebApiContriller {
 		}
 
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
+	}
+
+	@PostMapping("/post/create")
+	public String post_create(String title, MultipartFile[] file) {
+		// MultipartFile[] file
+		// 배열로 받아야함
+
+		System.out.println("title : " + title);
+		System.out.println("file : " + file);
+
+		for (int i = 0; i < file.length; i++) {
+			System.out.println("file : " + file[i].getOriginalFilename());
+		}
+
+		return "/post_create";
 	}
 }
