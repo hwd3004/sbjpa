@@ -20,7 +20,8 @@ public class BoardService {
         return boardRepository.save(createVO);
     }
 
-    public List<Board> list(int offset) {
+    @Transactional(readOnly = true)
+    public List<Board> boards(int offset) {
         return boardRepository.findBoardsOffset(offset);
     }
 

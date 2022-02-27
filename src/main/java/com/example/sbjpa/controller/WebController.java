@@ -35,4 +35,9 @@ public class WebController {
 		return "redirect:/";
 	}
 
+	@GetMapping("/post/{id}")
+	public String post() {
+		return "/post/id";
+	}
+
 }

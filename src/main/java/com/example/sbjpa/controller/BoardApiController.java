@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import com.example.sbjpa.dto.BoardResponseDto;
 import com.example.sbjpa.dto.ResponseDto;
 import com.example.sbjpa.model.Board;
 import com.example.sbjpa.model.User;
@@ -27,7 +28,7 @@ public class BoardApiController {
     private StorageService storageService;
 
     @GetMapping("/api/post/index")
-    public List<Board> post_index(int page) {
+    public BoardResponseDto post_index(int page) {
         try {
             System.out.println("asd page : " + page);
 
@@ -39,10 +40,15 @@ public class BoardApiController {
                 offset = page * 2 - 2;
             }
 
-            List<Board> list = boardService.list(offset);
+            List<Board> boards = boardService.boards(offset);
 
-            System.out.println("asd list : " + list);
-            return list;
+            System.out.println("asd list : " + boards);
+
+            BoardResponseDto boardResponseDto = new BoardResponseDto();
+
+            boardResponseDto.setBoards(boards);
+
+            return boardResponseDto;
         } catch (Exception e) {
             return null;
         }

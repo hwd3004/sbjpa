@@ -1,13 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <%@ include
 file="./layout/header.jsp"%>
 
-<div>
+<div id="app">
   <h1>index</h1>
   <a href="/post/create">post create</a>
 
-  <a href="/?page=1">1</a>
-  <a href="/?page=2">2</a>
-  <a href="/?page=3">3</a>
+  <br />
+
+  <boards></boards>
+
+  <br />
+
+  <a href="/?page=1"><button>1</button></a>
+  <a href="/?page=2"><button>2</button></a>
+  <a href="/?page=3"><button>3</button></a>
 </div>
 
 <script src="/js/post/index.js"></script>
