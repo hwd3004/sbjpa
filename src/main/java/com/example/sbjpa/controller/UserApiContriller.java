@@ -10,22 +10,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 @RestController
-public class WebApiContriller {
+public class UserApiContriller {
 
 	@Autowired
 	private UserService userService;
 
 	@PostMapping("/api/signup")
-	public ResponseDto<Integer> signup(@RequestBody User user) {
+	public ResponseDto<Integer> signup(User user) {
 
 		User signupUser = userService.signup(user);
 
-		System.out.println(signupUser);
+		System.out.println("asdasd signupUser : " + signupUser);
 
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
 	}
@@ -38,23 +36,12 @@ public class WebApiContriller {
 
 		if (principal != null) {
 			session.setAttribute("principal", principal);
+
+			return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
+		} else {
+			return new ResponseDto<>(HttpStatus.OK.value(), -1);
 		}
 
-		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
 	}
 
-	@PostMapping("/post/create")
-	public String post_create(String title, MultipartFile[] file) {
-		// MultipartFile[] file
-		// 배열로 받아야함
-
-		System.out.println("title : " + title);
-		System.out.println("file : " + file);
-
-		for (int i = 0; i < file.length; i++) {
-			System.out.println("file : " + file[i].getOriginalFilename());
-		}
-
-		return "/post_create";
-	}
 }

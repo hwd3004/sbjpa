@@ -1,5 +1,7 @@
 $(() => {
-  console.log("post create.js");
+  // document.getElementById("form").addEventListener("submit", function (event) {
+  //   event.preventDefault();
+  // });
 
   $("#form").submit(function (e) {
     e.preventDefault();
@@ -9,7 +11,7 @@ $(() => {
     console.log(formdata);
 
     $.ajax({
-      url: window.location.pathname,
+      url: `/api${window.location.pathname}`,
       type: "POST",
       data: formdata,
       cache: false,
@@ -17,6 +19,13 @@ $(() => {
       processData: false,
       success: (response) => {
         console.log(response);
+        if (response.data == 1) {
+          // location.href = "/";
+        }
+
+        if (response.data == -1) {
+          alert("로그인이 필요합니다.");
+        }
       },
       error: (error) => {
         alert("에러");

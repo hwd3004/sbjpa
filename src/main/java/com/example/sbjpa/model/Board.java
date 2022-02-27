@@ -21,7 +21,7 @@ import java.util.List;
 public class Board {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(nullable = false, length = 100)

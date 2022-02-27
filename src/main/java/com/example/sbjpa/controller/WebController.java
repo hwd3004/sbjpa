@@ -25,7 +25,7 @@ public class WebController {
 
 	@GetMapping("/post/create")
 	public String post_create() {
-		return "/post_create";
+		return "/post/create";
 	}
 
 	@GetMapping("/logout")
