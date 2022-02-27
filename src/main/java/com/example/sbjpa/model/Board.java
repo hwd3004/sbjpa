@@ -38,8 +38,11 @@ public class Board {
     private User user; // DB는 오브젝트 저장 불가, 자바는 가능
 
     // mappedBy - 연관관계가 아님을 의미(Fk가 아님을 의미), DB예 칼럼 생성 안함
-    @OneToMany(mappedBy = "board")
+    @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
     private List<Reply> reply;
+
+    @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
+    private List<Storage> storage;
 
     @CreationTimestamp
     private Timestamp createdAt;
