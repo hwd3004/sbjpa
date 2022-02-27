@@ -25,6 +25,7 @@ $(() => {
     },
     success: (response) => {
       console.log(response);
+      console.log(response[0]);
     },
     error: (error) => {
       alert("에러");
@@ -32,3 +33,4 @@ $(() => {
     },
   });
 });
+
