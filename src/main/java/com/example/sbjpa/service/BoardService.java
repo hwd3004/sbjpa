@@ -1,5 +1,7 @@
 package com.example.sbjpa.service;
 
+import java.util.List;
+
 import com.example.sbjpa.model.Board;
 import com.example.sbjpa.repository.BoardRepository;
 
@@ -16,6 +18,10 @@ public class BoardService {
     @Transactional
     public Board create(Board createVO) {
         return boardRepository.save(createVO);
+    }
+
+    public List<Board> list(int offset) {
+        return boardRepository.findBoardsOffset(offset);
     }
 
     @Transactional(readOnly = true)

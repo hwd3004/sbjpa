@@ -1,5 +1,7 @@
 package com.example.sbjpa.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import com.example.sbjpa.dto.ResponseDto;
@@ -10,6 +12,7 @@ import com.example.sbjpa.service.StorageService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,6 +25,28 @@ public class BoardApiController {
 
     @Autowired
     private StorageService storageService;
+
+    @GetMapping("/api/post/index")
+    public List<Board> post_index(int page) {
+        try {
+            System.out.println("asd page : " + page);
+
+            int offset;
+
+            if (page == 0) {
+                offset = 0;
+            } else {
+                offset = page * 2 - 2;
+            }
+
+            List<Board> list = boardService.list(offset);
+
+            System.out.println("asd list : " + list);
+            return list;
+        } catch (Exception e) {
+            return null;
+        }
+    }
 
     @PostMapping("/api/post/create")
     public ResponseDto<Integer> post_create(Board board, MultipartFile[] file, HttpSession session) {
