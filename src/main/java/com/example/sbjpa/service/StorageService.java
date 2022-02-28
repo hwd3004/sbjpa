@@ -1,6 +1,8 @@
 package com.example.sbjpa.service;
 
 import java.io.File;
+import java.util.List;
+import java.util.Optional;
 
 import com.example.sbjpa.model.Board;
 import com.example.sbjpa.model.Storage;
@@ -16,6 +18,17 @@ public class StorageService {
 
     @Autowired
     private StorageRepository storageRepository;
+
+    public Optional<Storage> findStorage(int id) {
+        return storageRepository.findById(id);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Storage> findStorages(int boardIdx) {
+        List<Storage> storages = storageRepository.findAllById(boardIdx);
+
+        return storages;
+    }
 
     @Transactional
     public void createFile(Board lastBoard, MultipartFile[] file) {

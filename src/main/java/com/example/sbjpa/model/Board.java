@@ -41,9 +41,6 @@ public class Board {
     @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
     private List<Reply> reply;
 
-    @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
-    private List<Storage> storage;
-
     @CreationTimestamp
     private Timestamp createdAt;
 

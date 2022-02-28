@@ -2,9 +2,11 @@
 <!--  -->
 <%@ include file="../layout/header.jsp"%>
 
-<div>
+<div id="app">
   <h1>post</h1>
+  <br />
+  <board></board>
 </div>
-<script src=""></script>
+<script src="/js/post/detail.js"></script>
 
 <%@ include file="../layout/footer.jsp"%>

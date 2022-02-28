@@ -25,7 +25,7 @@ $(() => {
 
       //   console.log("page : ", searchParams.get("page"));
 
-      const page = parseInt(searchParams.get("page")) || 0;
+      const page = parseInt(searchParams.get("page")) || 1;
 
       $.ajax({
         url: `/api/post/index`,
@@ -56,8 +56,8 @@ $(() => {
         </thead>
         <tbody>
           <tr v-for="(board, index) in this.boards" v-bind:key="index">
-            <td>{{board.id}}</td>
-            <td class="boardTitle">{{board.title}}</td>
+            <td class="boardId">{{board.id}}</td>
+            <td class="boardTitle"><a class="boardAnchor" href="#">{{board.title}}</a></td>
             <td>{{board.user.userName}}</td>
           </tr>
         </tbody>
@@ -65,17 +65,24 @@ $(() => {
     </div>
     `,
     updated() {
-      const boardTItle = document.querySelectorAll(".boardTitle");
+      const boardAnchor = document.querySelectorAll(".boardAnchor");
+      const boardId = document.querySelectorAll(".boardId");
 
-      for (let index = 0; index < boardTItle.length; index++) {
-        boardTItle[index].addEventListener("click", function (e) {
-          // console.log(this.parentNode.children[0].innerText)
+      for (let index = 0; index < boardAnchor.length; index++) {
+        const id = boardId[index].innerText;
 
-          const id = this.parentNode.children[0].innerText;
-
-          location.href = `/post/${id}`;
-        });
+        boardAnchor[index].href = `/post/${id}`;
       }
+
+      // const boardTItle = document.querySelectorAll(".boardTitle");
+
+      // for (let index = 0; index < boardTItle.length; index++) {
+      //   // boardTItle[index].addEventListener("click", function (e) {
+      //   //   // console.log(this.parentNode.children[0].innerText)
+      //   //   const id = this.parentNode.children[0].innerText;
+      //   //   location.href = `/post/${id}`;
+      //   // });
+      // }
     },
   };
 

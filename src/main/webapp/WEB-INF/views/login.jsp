@@ -32,7 +32,11 @@ file="./layout/header.jsp"%>
       })
         .done(function (response) {
           console.log("response : ", response);
-          location.href = "/";
+          if(response.data == -1){
+            alert("아이디 비밀번호 확인 필요");
+          } else {
+            location.href = "/";
+          }
         })
         .fail(function (error) {
           console.log("error : ", error);

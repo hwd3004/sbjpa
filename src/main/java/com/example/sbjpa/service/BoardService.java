@@ -1,6 +1,7 @@
 package com.example.sbjpa.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.example.sbjpa.model.Board;
 import com.example.sbjpa.repository.BoardRepository;
@@ -21,7 +22,14 @@ public class BoardService {
     }
 
     @Transactional(readOnly = true)
-    public List<Board> boards(int offset) {
+    public Optional<Board> findById(int id) {
+        Optional<Board> board = boardRepository.findById(id);
+        // System.out.println("board : " + board);
+        return board;
+    }
+
+    @Transactional(readOnly = true)
+    public List<Board> boardsOffset(int offset) {
         return boardRepository.findBoardsOffset(offset);
     }
 

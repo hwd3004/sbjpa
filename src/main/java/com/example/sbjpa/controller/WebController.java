@@ -37,7 +37,7 @@ public class WebController {
 
 	@GetMapping("/post/{id}")
 	public String post() {
-		return "/post/id";
+		return "/post/detail";
 	}
 
 }
