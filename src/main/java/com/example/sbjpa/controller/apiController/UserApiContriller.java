@@ -21,7 +21,7 @@ public class UserApiContriller {
 	@PostMapping("/api/signup")
 	public ResponseDto<Integer> signup(User user) {
 
-		User signupUser = userService.signup(user);
+		userService.signup(user);
 
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
 	}
