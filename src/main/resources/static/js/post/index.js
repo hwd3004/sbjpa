@@ -1,51 +1,51 @@
 $(() => {
-  const app = Vue.createApp({});
+	const app = Vue.createApp({});
 
-  const boards = {
-    data() {
-      return {
-        boards: [],
-        loading: true,
-      };
-    },
-    mounted() {
-      //   console.log(location.href);
-      //   console.log(location.pathname);
-      //   console.log(location.search);
+	const boards = {
+		data() {
+			return {
+				boards: [],
+				loading: true,
+			};
+		},
+		mounted() {
+			//   console.log(location.href);
+			//   console.log(location.pathname);
+			//   console.log(location.search);
 
-      //   https://developer.mozilla.org/ko/docs/Web/API/URLSearchParams
+			//   https://developer.mozilla.org/ko/docs/Web/API/URLSearchParams
 
-      const paramString = location.search;
+			const paramString = location.search;
 
-      const searchParams = new URLSearchParams(paramString);
+			const searchParams = new URLSearchParams(paramString);
 
-      // for (const iterator of searchParams) {
-      //   console.log(iterator);
-      // }
+			// for (const iterator of searchParams) {
+			//   console.log(iterator);
+			// }
 
-      //   console.log("page : ", searchParams.get("page"));
+			//   console.log("page : ", searchParams.get("page"));
 
-      const page = parseInt(searchParams.get("page")) || 1;
+			const page = parseInt(searchParams.get("page")) || 1;
 
-      $.ajax({
-        url: `/api/post/index`,
-        type: "get",
-        data: {
-          page,
-        },
-        success: (response) => {
-          console.log(response);
-          this.boards = response.boards;
+			$.ajax({
+				url: `/api/post/index`,
+				type: "get",
+				data: {
+					page,
+				},
+				success: (response) => {
+					console.log(response);
+					this.boards = response.boards;
 
-          this.loading = false;
-        },
-        error: (error) => {
-          alert("에러");
-          console.log(error);
-        },
-      });
-    },
-    template: `
+					this.loading = false;
+				},
+				error: (error) => {
+					alert("에러");
+					console.log(error);
+				},
+			});
+		},
+		template: `
     <div>
       <p v-if="this.loading == true">Loading...</p>
       <table>
@@ -64,29 +64,29 @@ $(() => {
       </table>
     </div>
     `,
-    updated() {
-      const boardAnchor = document.querySelectorAll(".boardAnchor");
-      const boardId = document.querySelectorAll(".boardId");
+		updated() {
+			const boardAnchor = document.querySelectorAll(".boardAnchor");
+			const boardId = document.querySelectorAll(".boardId");
 
-      for (let index = 0; index < boardAnchor.length; index++) {
-        const id = boardId[index].innerText;
+			for (let index = 0; index < boardAnchor.length; index++) {
+				const id = boardId[index].innerText;
 
-        boardAnchor[index].href = `/post/${id}`;
-      }
+				boardAnchor[index].href = `/post/${id}`;
+			}
 
-      // const boardTItle = document.querySelectorAll(".boardTitle");
+			// const boardTItle = document.querySelectorAll(".boardTitle");
 
-      // for (let index = 0; index < boardTItle.length; index++) {
-      //   // boardTItle[index].addEventListener("click", function (e) {
-      //   //   // console.log(this.parentNode.children[0].innerText)
-      //   //   const id = this.parentNode.children[0].innerText;
-      //   //   location.href = `/post/${id}`;
-      //   // });
-      // }
-    },
-  };
+			// for (let index = 0; index < boardTItle.length; index++) {
+			//   // boardTItle[index].addEventListener("click", function (e) {
+			//   //   // console.log(this.parentNode.children[0].innerText)
+			//   //   const id = this.parentNode.children[0].innerText;
+			//   //   location.href = `/post/${id}`;
+			//   // });
+			// }
+		},
+	};
 
-  app.component("boards", boards);
+	app.component("boards", boards);
 
-  app.mount("#app");
+	app.mount("#app");
 });

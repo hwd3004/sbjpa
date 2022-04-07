@@ -1,36 +1,36 @@
 $(() => {
-  const app = Vue.createApp({});
+	const app = Vue.createApp({});
 
-  const board = {
-    data() {
-      return {
-        board: {
-          user: {
-            userName: "",
-          },
-        },
-        storages: {},
-      };
-    },
-    mounted() {
-      // console.log(location.href);
-      // console.log(location.pathname);
-      $.ajax({
-        url: `/api${location.pathname}`,
-        type: "get",
+	const board = {
+		data() {
+			return {
+				board: {
+					user: {
+						userName: "",
+					},
+				},
+				storages: {},
+			};
+		},
+		mounted() {
+			// console.log(location.href);
+			// console.log(location.pathname);
+			$.ajax({
+				url: `/api${location.pathname}`,
+				type: "get",
 
-        success: (response) => {
-          console.log(response);
-          this.board = response.board;
-          this.storages = response.storages;
-        },
-        error: (error) => {
-          alert("에러");
-          console.log(error);
-        },
-      });
-    },
-    template: `
+				success: (response) => {
+					console.log(response);
+					this.board = response.board;
+					this.storages = response.storages;
+				},
+				error: (error) => {
+					alert("에러");
+					console.log(error);
+				},
+			});
+		},
+		template: `
     <div>
       <p>제목 : {{this.board.title}}</p>
       <p>작성자 : {{this.board.user.userName}}</p>
@@ -45,22 +45,22 @@ $(() => {
       </div>
     </div>
     `,
-    updated() {
-      // const download = document.getElementsByTagName("a");
-      const download = document.querySelectorAll(".download");
+		updated() {
+			// const download = document.getElementsByTagName("a");
+			const download = document.querySelectorAll(".download");
 
-      const storageId = document.querySelectorAll(".storageId");
+			const storageId = document.querySelectorAll(".storageId");
 
-      for (let index = 0; index < download.length; index++) {
-        const id = storageId[index].value;
-        const filename = download[index].innerText;
-        
-        download[index].href = `/download/${id}`;
-      }
-    },
-  };
+			for (let index = 0; index < download.length; index++) {
+				const id = storageId[index].value;
+				const filename = download[index].innerText;
 
-  app.component("board", board);
+				download[index].href = `/download/${id}`;
+			}
+		},
+	};
 
-  app.mount("#app");
+	app.component("board", board);
+
+	app.mount("#app");
 });

@@ -1,16 +1,16 @@
-package com.example.sbjpa.controller;
+package com.example.sbjpa.controller.apiController;
 
 import javax.servlet.http.HttpSession;
-
-import com.example.sbjpa.dto.ResponseDto;
-import com.example.sbjpa.model.User;
-import com.example.sbjpa.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.example.sbjpa.dto.ResponseDto;
+import com.example.sbjpa.model.User;
+import com.example.sbjpa.service.UserService;
 
 @RestController
 public class UserApiContriller {
@@ -22,8 +22,6 @@ public class UserApiContriller {
 	public ResponseDto<Integer> signup(User user) {
 
 		User signupUser = userService.signup(user);
-
-		System.out.println("asdasd signupUser : " + signupUser);
 
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
 	}

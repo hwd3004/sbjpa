@@ -1,4 +1,4 @@
-package com.example.sbjpa.controller;
+package com.example.sbjpa.controller.apiController;
 
 import java.io.File;
 import java.net.URLEncoder;
@@ -9,15 +9,6 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
-
-import com.example.sbjpa.dto.BoardResponseDto;
-import com.example.sbjpa.dto.FileResponseDto;
-import com.example.sbjpa.dto.ResponseDto;
-import com.example.sbjpa.model.Board;
-import com.example.sbjpa.model.Storage;
-import com.example.sbjpa.model.User;
-import com.example.sbjpa.service.BoardService;
-import com.example.sbjpa.service.StorageService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
@@ -31,6 +22,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.example.sbjpa.dto.BoardResponseDto;
+import com.example.sbjpa.dto.ResponseDto;
+import com.example.sbjpa.model.Board;
+import com.example.sbjpa.model.Storage;
+import com.example.sbjpa.model.User;
+import com.example.sbjpa.service.BoardService;
+import com.example.sbjpa.service.StorageService;
 
 @RestController
 public class BoardApiController {
