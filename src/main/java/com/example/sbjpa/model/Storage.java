@@ -33,7 +33,7 @@ public class Storage {
     long size;
 
     @ManyToOne
-    @JoinColumn(name = "boardIdx")
+    @JoinColumn(name = "boardId")
     private Board board;
 
 }

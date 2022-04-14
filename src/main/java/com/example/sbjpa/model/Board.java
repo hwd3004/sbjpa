@@ -34,7 +34,7 @@ public class Board {
     private int count;
 
     @ManyToOne
-    @JoinColumn(name = "userIdx")
+    @JoinColumn(name = "userId")
     private User user; // DB는 오브젝트 저장 불가, 자바는 가능
 
     // mappedBy - 연관관계가 아님을 의미(Fk가 아님을 의미), DB예 칼럼 생성 안함
