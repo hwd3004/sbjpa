@@ -58,7 +58,7 @@ $(() => {
           <tr v-for="(board, index) in this.boards" v-bind:key="index">
             <td class="boardId">{{board.id}}</td>
             <td class="boardTitle"><a class="boardAnchor" href="#">{{board.title}}</a></td>
-            <td>{{board.user.userName}}</td>
+            <td v-if="board.user">{{board.user.userName}}</td>
           </tr>
         </tbody>
       </table>

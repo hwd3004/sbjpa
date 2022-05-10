@@ -1,8 +1,10 @@
 package com.example.sbjpa.service;
 
+import com.example.sbjpa.dto.ResponseDto;
 import com.example.sbjpa.model.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +25,12 @@ public class UserService {
 
 	@Transactional
 	public User signup(User user) {
-		return userRepository.save(user);
+		User result = userRepository.save(user);
+
+//			System.out.println(result);
+//			User(id=3, userId=asd, userName=asd, password=asd, role=null, createdAt=2022-05-09 18:16:52.851)
+
+//			중복시 SQL Error: 1062, SQLState: 23000
+		return result;
 	}
 }
