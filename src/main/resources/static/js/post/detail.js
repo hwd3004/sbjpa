@@ -19,10 +19,14 @@ $(() => {
 				url: `/api${location.pathname}`,
 				type: "get",
 
-				success: (response) => {
-					console.log(response);
-					this.board = response.board;
-					this.storages = response.storages;
+				success: (res) => {
+					if (!res) {
+						alert("해당 글을 찾을 수 없습니다.");
+						location.href = "/";
+					}
+
+					this.board = res.board;
+					this.storages = res.storages;
 				},
 				error: (error) => {
 					alert("에러");

@@ -1,14 +1,8 @@
 $(() => {
-	// document.getElementById("form").addEventListener("submit", function (event) {
-	//   event.preventDefault();
-	// });
-
-	$("#form").submit(function(e) {
+	$("form").submit(function(e) {
 		e.preventDefault();
 
 		const formdata = new FormData(this);
-
-		console.log(formdata);
 
 		$.ajax({
 			url: `/api${window.location.pathname}`,
@@ -17,13 +11,11 @@ $(() => {
 			cache: false,
 			contentType: false,
 			processData: false,
-			success: (response) => {
-				console.log(response);
-				if (response.data == 1) {
+			success: (res) => {
+				console.log(res);
+				if (res.status == 200) {
 					location.href = "/";
-				}
-
-				if (response.data == -1) {
+				} else {
 					alert("로그인이 필요합니다.");
 				}
 			},

@@ -1,13 +1,12 @@
 package com.example.sbjpa.service;
 
-import com.example.sbjpa.dto.ResponseDto;
-import com.example.sbjpa.model.User;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.sbjpa.dto.ResponseDto;
+import com.example.sbjpa.model.User;
 import com.example.sbjpa.repository.UserRepository;
 
 // 서비스 어노테이션이 선언된 클래스에는 비지니스 로직을 작성하는 곳이며,
@@ -20,17 +19,39 @@ public class UserService {
 
 	@Transactional(readOnly = true)
 	public User login(User user) {
-		return userRepository.login(user.getUserId(), user.getPassword());
+		User tryLogin = userRepository.findByuserId(user.getUserId());
+
+		return tryLogin;
 	}
 
 	@Transactional
-	public User signup(User user) {
-		User result = userRepository.save(user);
+	public ResponseDto<String> signup(User user) {
+		if (user.getUserId().length() < 3) {
+			return new ResponseDto<String>(HttpStatus.BAD_REQUEST.value(), "id 3자 이상 입력");
+		}
 
-//			System.out.println(result);
-//			User(id=3, userId=asd, userName=asd, password=asd, role=null, createdAt=2022-05-09 18:16:52.851)
+		if (user.getUserName().length() < 3) {
+			return new ResponseDto<String>(HttpStatus.BAD_REQUEST.value(), "user name 3자 이상 입력");
+		}
 
-//			중복시 SQL Error: 1062, SQLState: 23000
-		return result;
+		if (user.getPassword().length() < 3) {
+			return new ResponseDto<String>(HttpStatus.BAD_REQUEST.value(), "password 3자 이상 입력");
+		}
+
+		User existUserId = userRepository.findByuserId(user.getUserId());
+
+		if (existUserId != null) {
+			return new ResponseDto<String>(HttpStatus.BAD_REQUEST.value(), "이미 있는 id");
+		}
+
+		User existUserName = userRepository.findByuserName(user.getUserName());
+
+		if (existUserName != null) {
+			return new ResponseDto<String>(HttpStatus.BAD_REQUEST.value(), "이미 있는 user name");
+		}
+
+		userRepository.save(user);
+
+		return new ResponseDto<String>(HttpStatus.OK.value(), "가입 완료");
 	}
 }

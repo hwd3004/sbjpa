@@ -9,6 +9,8 @@ spring web
 
 pom.xml에 jsp, jstl 추가
 
+<hr/>
+
 ```xml
 <!-- 시큐리티 태그 라이브러리 -->
 <dependency>
@@ -38,7 +40,7 @@ gradle 사용시
 	implementation 'org.springframework.security:spring-security-taglibs'	// Security 태그 라이브러리
 ```
 
----
+<hr/>
 
 스프링으로 사용자가 업로드한 파일 다운로드
 
@@ -46,4 +48,6 @@ https://jforj.tistory.com/135
 
 https://rockdrumy.tistory.com/1215 - UTF-8 인코딩
 
----
+https://goodteacher.tistory.com/351
+
+https://velog.io/@pyo-sh/Spring-Boot-파일이미지-업로드-구현하기

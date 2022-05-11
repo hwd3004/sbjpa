@@ -12,6 +12,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface StorageRepository extends JpaRepository<Storage, Integer> {
 
-    @Query(value = "SELECT * FROM STORAGE WHERE boardIdx = :boardIdx", nativeQuery = true)
-    List<Storage> findAllById(@Param(value = "boardIdx") int boardIdx);
+    @Query(value = "SELECT * FROM STORAGE WHERE boardId = :boardId", nativeQuery = true)
+    List<Storage> findAllById(@Param(value = "boardId") int boardId);
 }

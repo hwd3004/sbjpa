@@ -24,8 +24,8 @@ public class StorageService {
     }
 
     @Transactional(readOnly = true)
-    public List<Storage> findStorages(int boardIdx) {
-        List<Storage> storages = storageRepository.findAllById(boardIdx);
+    public List<Storage> findStorages(int boardId) {
+        List<Storage> storages = storageRepository.findAllById(boardId);
 
         return storages;
     }

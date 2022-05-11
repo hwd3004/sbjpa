@@ -6,9 +6,11 @@ $(() => {
 
 		const formdata = new FormData(this);
 
+		console.log(formdata)
+
 		$.ajax({
 			type: "POST",
-			url: "/api/signup",
+			url: "/api/login",
 			data: formdata,
 			cache: false,
 			contentType: false,
@@ -19,9 +21,9 @@ $(() => {
 
 				if (res.status == 200) {
 					location.href = "/";
+				} else {
+					alert(res.data)
 				}
-
-				alert(res.data);
 			})
 			.fail(function(error) {
 				console.log("error : ", error);

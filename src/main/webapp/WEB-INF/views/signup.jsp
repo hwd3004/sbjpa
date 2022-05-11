@@ -15,7 +15,7 @@
 			<label for="password">password</label> <input type="password" placeholder="enter password" id="password" name="password" />
 		</div>
 
-		<button id="signupSubmit" type="submit">submit</button>
+		<button type="submit">submit</button>
 	</form>
 </div>
 <script src="/js/signup.js"></script>

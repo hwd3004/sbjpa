@@ -34,153 +34,142 @@ import com.example.sbjpa.service.StorageService;
 @RestController
 public class BoardApiController {
 
-    @Autowired
-    private BoardService boardService;
+	@Autowired
+	private BoardService boardService;
 
-    @Autowired
-    private StorageService storageService;
+	@Autowired
+	private StorageService storageService;
 
-    @GetMapping("/api/post/{id}")
-    public BoardResponseDto post(@PathVariable int id) {
-        // System.out.println(id);
-        Optional<Board> board = boardService.findById(id);
-        // System.out.println(board);
+	@GetMapping("/api/post/{id}")
+	public BoardResponseDto post(@PathVariable int id) {
+		Optional<Board> board = boardService.findById(id);
 
-        BoardResponseDto response = new BoardResponseDto();
+		BoardResponseDto response = new BoardResponseDto();
 
-        if (!board.isEmpty()) {
-            response.setBoard(board);
+		if (board.isEmpty()) {
+			return null;
+		}
 
-            int boardIdx = board.get().getId();
+		if (!board.isEmpty()) {
+			response.setBoard(board);
 
-            // System.out.println("asdsad : " + boardIdx);
+			int boardId = board.get().getId();
 
-            List<Storage> storages = storageService.findStorages(boardIdx);
+			List<Storage> storages = storageService.findStorages(boardId);
 
-            // System.out.println("asdsad : " + storages);
+			response.setStorages(storages);
 
-            response.setStorages(storages);
+		} else {
+			response.setBoard(null);
+		}
 
-        } else {
-            response.setBoard(null);
-        }
+		return response;
+	}
 
-        return response;
-    }
+	@GetMapping("/api/post/index")
+	public BoardResponseDto post_index(int page) {
+		try {
+			List<Board> boards;
+			int offset;
 
-    @GetMapping("/api/post/index")
-    public BoardResponseDto post_index(int page) {
-        try {
-            List<Board> boards;
-            int offset;
+			if (page == 1) {
+				offset = 0;
+			} else {
+				offset = page * 2 - 2;
+			}
 
-            if (page == 1) {
-                offset = 0;
-            } else {
-                offset = page * 2 - 2;
-            }
+			boards = boardService.boardsOffset(offset);
 
-            boards = boardService.boardsOffset(offset);
+			BoardResponseDto boardResponseDto = new BoardResponseDto();
 
-            BoardResponseDto boardResponseDto = new BoardResponseDto();
+			boardResponseDto.setBoards(boards);
 
-            boardResponseDto.setBoards(boards);
+			return boardResponseDto;
+		} catch (Exception e) {
+			return null;
+		}
+	}
 
-            return boardResponseDto;
-        } catch (Exception e) {
-            return null;
-        }
-    }
+	@PostMapping("/api/post/create")
+	public ResponseDto<String> post_create(Board board, MultipartFile[] file, HttpSession session) {
+		try {
+			// MultipartFile[] file
+			// 배열로 받아야함
 
-    @PostMapping("/api/post/create")
-    public ResponseDto<Integer> post_create(Board board, MultipartFile[] file, HttpSession session) {
-        try {
-            // MultipartFile[] file
-            // 배열로 받아야함
+			User currentUser = (User) session.getAttribute("principal");
 
-            User user = (User) session.getAttribute("principal");
+			if (currentUser == null) {
+				return new ResponseDto<>(HttpStatus.BAD_REQUEST.value(), "로그인 필요");
+			}
 
-            if (user == null) {
-                return new ResponseDto<>(HttpStatus.OK.value(), -1);
-            }
+			Board createVO = new Board();
+			createVO.setTitle(board.getTitle());
+			createVO.setContent(board.getContent());
+			createVO.setUser(currentUser);
 
-            // System.out.println("board : " + board);
-            // System.out.println("session : " + session.getAttribute("principal"));
-            // System.out.println("user : " + user);
+			boardService.create(createVO);
 
-            Board createVO = new Board();
-            createVO.setTitle(board.getTitle());
-            createVO.setContent(board.getContent());
-            createVO.setUser(user);
+			Board lastBoard = boardService.findLastBoard();
 
-            // System.out.println("createVO : " + createVO);
+			storageService.createFile(lastBoard, file);
 
-            boardService.create(createVO);
+			return new ResponseDto<String>(HttpStatus.OK.value(), "글 생성 완료");
+		} catch (Exception e) {
+			e.printStackTrace();
 
-            Board lastBoard = boardService.findLastBoard();
+			return new ResponseDto<String>(HttpStatus.BAD_REQUEST.value(), "에러");
+		}
+	}
 
-            // System.out.println("lastBoard : " + lastBoard);
+	@GetMapping("/download/{id}")
+	public ResponseEntity<Object> download(@PathVariable int id) {
+		try {
+			Optional<Storage> storage = storageService.findStorage(id);
 
-            // System.out.println("file length : " + file.length);
+			String path = storage.get().getPath();
 
-            storageService.createFile(lastBoard, file);
+			String absolutePath = new File("").getAbsolutePath() + "\\";
+			// System.out.println("asd path : " + absolutePath);
+			// System.out.println("asd path : " + absolutePath + "/" + path);
 
-            return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
-        } catch (Exception e) {
-            e.printStackTrace();
+			path = absolutePath + "/" + path;
 
-            return new ResponseDto<Integer>(HttpStatus.OK.value(), -1);
-        }
-    }
+			Path filePath = Paths.get(path);
 
-    @GetMapping("/download/{id}")
-    public ResponseEntity<Object> download(@PathVariable int id) {
-        try {
-            Optional<Storage> storage = storageService.findStorage(id);
+			// System.out.println(filePath);
 
-            String path = storage.get().getPath();
+			Resource resource = new InputStreamResource(Files.newInputStream(filePath));
 
-            String absolutePath = new File("").getAbsolutePath() + "\\";
-            // System.out.println("asd path : " + absolutePath);
-            // System.out.println("asd path : " + absolutePath + "/" + path);
+			// System.out.println(resource);
 
-            path = absolutePath + "/" + path;
+			// File file = new File(path);
 
-            Path filePath = Paths.get(path);
+			// System.out.println(file);
 
-            // System.out.println(filePath);
+			HttpHeaders headers = new HttpHeaders();
 
-            Resource resource = new InputStreamResource(Files.newInputStream(filePath));
+			// System.out.println(headers);
 
-            // System.out.println(resource);
+			// System.out.println(file.getName());
 
-            // File file = new File(path);
+			// headers.setContentDisposition(ContentDisposition.builder("attachment").filename(file.getName()).build());
 
-            // System.out.println(file);
+			String filename = URLEncoder.encode(storage.get().getFilename(), "UTF-8");
+			filename = filename.replaceAll("\\+", "%20");
 
-            HttpHeaders headers = new HttpHeaders();
+			headers.setContentDisposition(ContentDisposition.builder("attachment").filename(filename).build());
 
-            // System.out.println(headers);
+			// System.out.println(headers);
 
-            // System.out.println(file.getName());
+			// return null;
 
-            // headers.setContentDisposition(ContentDisposition.builder("attachment").filename(file.getName()).build());
+			// return new FileResponseDto(resource, headers, HttpStatus.OK.value());
+			return new ResponseEntity<Object>(resource, headers, HttpStatus.OK.value());
+		} catch (Exception e) {
+			e.printStackTrace();
 
-            String filename = URLEncoder.encode(storage.get().getFilename(), "UTF-8");
-            filename = filename.replaceAll("\\+", "%20");
-
-            headers.setContentDisposition(
-                    ContentDisposition.builder("attachment").filename(filename).build());
-
-            // System.out.println(headers);
-
-            // return null;
-
-            // return new FileResponseDto(resource, headers, HttpStatus.OK.value());
-            return new ResponseEntity<Object>(resource, headers, HttpStatus.OK.value());
-        } catch (Exception e) {
-            return null;
-        }
-    }
+			return null;
+		}
+	}
 
 }
