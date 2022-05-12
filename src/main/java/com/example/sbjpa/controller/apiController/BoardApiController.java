@@ -102,16 +102,17 @@ public class BoardApiController {
 				return new ResponseDto<>(HttpStatus.BAD_REQUEST.value(), "로그인 필요");
 			}
 
-			Board createVO = new Board();
-			createVO.setTitle(board.getTitle());
-			createVO.setContent(board.getContent());
-			createVO.setUser(currentUser);
+			Board newBoard = new Board();
+			newBoard.setTitle(board.getTitle());
+			newBoard.setContent(board.getContent());
+			newBoard.setUser(currentUser);
 
-			boardService.create(createVO);
+			Board createdBoard = boardService.create(newBoard);
+			System.out.println("createdBoard : " + createdBoard);
 
-			Board lastBoard = boardService.findLastBoard();
+//			Board lastBoard = boardService.findLastBoard();
 
-			storageService.createFile(lastBoard, file);
+			storageService.createFile(createdBoard, file);
 
 			return new ResponseDto<String>(HttpStatus.OK.value(), "글 생성 완료");
 		} catch (Exception e) {
