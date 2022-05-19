@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.sbjpa.service.BoardService;
 
@@ -50,11 +51,9 @@ public class WebController {
 	}
 
 	@GetMapping("/index2")
-	public String index2(HttpServletRequest httpServletRequest, Model model) {
+	public String index2(HttpServletRequest httpServletRequest, Model model,
+			@RequestParam(name = "page", required = false, defaultValue = "1") int page) {
 		try {
-
-			String queryString = httpServletRequest.getQueryString();
-
 			int boardsPerPage = 3;
 			int offset = 0;
 			int limit = boardsPerPage;
@@ -70,18 +69,10 @@ public class WebController {
 
 			System.out.println("totalPage : " + totalPage);
 
-			if (queryString == null) {
-				model.addAttribute("boards", boardService.findBoards(limit, offset));
-				model.addAttribute("totalPage", totalPage);
+			offset = page * boardsPerPage - boardsPerPage;
 
-			} else {
-				int page = Integer.parseInt(queryString.split("=")[1]);
-
-				offset = page * boardsPerPage - boardsPerPage;
-
-				model.addAttribute("boards", boardService.findBoards(limit, offset));
-				model.addAttribute("totalPage", totalPage);
-			}
+			model.addAttribute("boards", boardService.findBoards(limit, offset));
+			model.addAttribute("totalPage", totalPage);
 
 			return "/index2";
 

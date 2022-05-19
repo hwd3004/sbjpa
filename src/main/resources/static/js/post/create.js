@@ -14,7 +14,7 @@ $(() => {
 			success: (res) => {
 				console.log(res);
 				if (res.status == 200) {
-					location.href = "/";
+					//location.href = "/";
 				} else {
 					alert("로그인이 필요합니다.");
 				}
