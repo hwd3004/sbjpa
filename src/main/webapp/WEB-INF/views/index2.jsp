@@ -51,13 +51,7 @@ const paginationDiv = document.querySelector("#pagination");
 const pagination = (paginationDiv) => {
     const url = new URL(location.href);
 
-    let page = url.searchParams.get("page");
-    
-    console.log(page)
-
-    if (!page) {
-      page = 1;
-    }
+    const page = url.searchParams.get("page") || 1;
 
     if (page < 10) {
       for (let i = 1; i <= 10; i++) {
