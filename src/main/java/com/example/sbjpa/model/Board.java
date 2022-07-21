@@ -18,42 +18,43 @@ import java.util.List;
 @Builder
 @Entity
 @DynamicInsert
+@Table(name = "BOARD")
 public class Board {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 
-    @Column(nullable = false, length = 100)
-    private String title;
+	@Column(nullable = false, length = 100)
+	private String title;
 
-    @Lob
-    private String content;
+	@Lob
+	private String content;
 
-    @ColumnDefault("0")
-    private int count;
+	@ColumnDefault("0")
+	private int count;
 
-    @ManyToOne
-    @JoinColumn(name = "userId")
-    private User user; // DB는 오브젝트 저장 불가, 자바는 가능
+	@ManyToOne
+	@JoinColumn(name = "userId")
+	private User user; // DB는 오브젝트 저장 불가, 자바는 가능
 
-    // mappedBy - 연관관계가 아님을 의미(Fk가 아님을 의미), DB예 칼럼 생성 안함
-    @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
-    private List<Reply> reply;
+	// mappedBy - 연관관계가 아님을 의미(Fk가 아님을 의미), DB예 칼럼 생성 안함
+	@OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
+	private List<Reply> reply;
 
-    @CreationTimestamp
-    private Timestamp createdAt;
+	@CreationTimestamp
+	private Timestamp createdAt;
 
-    // 글의 그룹
-    @ColumnDefault("0")
-    private int ref;
+	// 글의 그룹
+	@ColumnDefault("0")
+	private int ref;
 
-    // 글의 순서
-    @ColumnDefault("0")
-    private int reStep;
+	// 글의 순서
+	@ColumnDefault("0")
+	private int reStep;
 
-    // 글의 레벨
-    @ColumnDefault("0")
-    private int reLevel;
+	// 글의 레벨
+	@ColumnDefault("0")
+	private int reLevel;
 
 }

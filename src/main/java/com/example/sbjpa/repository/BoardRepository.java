@@ -12,13 +12,13 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BoardRepository extends JpaRepository<Board, Integer> {
 
-	@Query(value = "SELECT id FROM board ORDER BY id DESC LIMIT 1", nativeQuery = true)
+	@Query(value = "SELECT id FROM BOARD ORDER BY id DESC LIMIT 1", nativeQuery = true)
 	Board findLastBoard();
 
 	// https://jforj.tistory.com/90
-	@Query(value = "SELECT * FROM Board ORDER BY id DESC LIMIT 2 OFFSET :offset", nativeQuery = true)
+	@Query(value = "SELECT * FROM BOARD ORDER BY id DESC LIMIT 2 OFFSET :offset", nativeQuery = true)
 	List<Board> findBoardsOffset(@Param(value = "offset") int offset);
 
-	@Query(value = "SELECT * FROM Board ORDER BY id DESC LIMIT :limit OFFSET :offset", nativeQuery = true)
+	@Query(value = "SELECT * FROM BOARD ORDER BY id DESC LIMIT :limit OFFSET :offset", nativeQuery = true)
 	List<Board> findBoards(@Param(value = "limit") int limit, @Param(value = "offset") int offset);
 }

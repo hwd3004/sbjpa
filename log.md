@@ -51,3 +51,5 @@ https://rockdrumy.tistory.com/1215 - UTF-8 인코딩
 https://goodteacher.tistory.com/351
 
 https://velog.io/@pyo-sh/Spring-Boot-파일이미지-업로드-구현하기
+
+docker run -itd --name some-mariadb --env MARIADB_USER=demouser --env MARIADB_PASSWORD=1234 --env MARIADB_ROOT_PASSWORD=1234 -p 3306:3306  mariadb:latest

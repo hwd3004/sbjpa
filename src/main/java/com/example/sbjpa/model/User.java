@@ -16,6 +16,7 @@ import java.sql.Timestamp;
 @Entity // User 클래스가 dbms에 테이블이 생성됨
 // @DynamicInsert // insert 시 null 값인 필드 제외
 // @DynamicUpdate
+@Table(name = "USER")
 public class User {
 
 	@Id

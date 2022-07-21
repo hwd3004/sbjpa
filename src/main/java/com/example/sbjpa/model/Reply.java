@@ -14,6 +14,7 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @Builder
 @Entity
+@Table(name = "REPLY")
 public class Reply {
 
     @Id

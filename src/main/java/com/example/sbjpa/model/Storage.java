@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicInsert;
 
@@ -20,20 +21,21 @@ import lombok.NoArgsConstructor;
 @DynamicInsert
 @Builder
 @Entity
+@Table(name = "STORAGE")
 public class Storage {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	int id;
 
-    String filename;
+	String filename;
 
-    String path;
+	String path;
 
-    long size;
+	long size;
 
-    @ManyToOne
-    @JoinColumn(name = "boardId")
-    private Board board;
+	@ManyToOne
+	@JoinColumn(name = "boardId")
+	private Board board;
 
 }
