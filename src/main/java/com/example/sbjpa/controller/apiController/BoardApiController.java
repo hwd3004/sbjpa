@@ -48,22 +48,36 @@ public class BoardApiController {
 
 		BoardResponseDto response = new BoardResponseDto();
 
-		if (board.isEmpty()) {
+//		if (board.isEmpty()) {
+//			return null;
+//		}
+//
+//		if (!board.isEmpty()) {
+//			response.setBoard(board);
+//
+//			int boardId = board.get().getId();
+//
+//			List<Storage> storages = storageService.findStorages(boardId);
+//
+//			response.setStorages(storages);
+//
+//		} else {
+//			response.setBoard(null);
+//		}
+//
+//		return response;
+
+		if (board == null) {
 			return null;
 		}
 
-		if (!board.isEmpty()) {
-			response.setBoard(board);
+		response.setBoard(board);
 
-			int boardId = board.get().getId();
+		int boardId = board.get().getId();
 
-			List<Storage> storages = storageService.findStorages(boardId);
+		List<Storage> storages = storageService.findStorages(boardId);
 
-			response.setStorages(storages);
-
-		} else {
-			response.setBoard(null);
-		}
+		response.setStorages(storages);
 
 		return response;
 	}
