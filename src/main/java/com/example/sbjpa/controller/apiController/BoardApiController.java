@@ -118,7 +118,7 @@ public class BoardApiController {
 
 			return new ResponseDto<String>(HttpStatus.OK.value(), "글 생성 완료");
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println(e);
 
 			return new ResponseDto<String>(HttpStatus.BAD_REQUEST.value(), "에러");
 		}
