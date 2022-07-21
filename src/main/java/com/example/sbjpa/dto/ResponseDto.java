@@ -1,7 +1,5 @@
 package com.example.sbjpa.dto;
 
-import java.util.Map;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ResponseDto<T> {
 
-    int status;
-    T data;
+	int status;
+	T data;
 
 }
